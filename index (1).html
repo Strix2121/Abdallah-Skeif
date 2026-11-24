@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لوحتي | Abdallah Skeif</title>
+  <meta name="description" content="لوحة التحكم الشخصية - Abdallah Skeif" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #070b14;
+      --bg-card: rgba(255, 255, 255, 0.035);
+      --bg-card-hover: rgba(255, 255, 255, 0.065);
+      --border: rgba(255, 255, 255, 0.07);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent: #6366f1;
+      --accent-2: #22d3ee;
+      --radius: 22px;
+      --shadow: 0 25px 50px -20px rgba(0, 0, 0, 0.55);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans Arabic', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -25%;
+      right: -15%;
+      width: 65%;
+      height: 65%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.13) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -20%;
+      left: -10%;
+      width: 50%;
+      height: 50%;
+      background: radial-gradient(circle, rgba(34, 211, 238, 0.09) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 48px 24px 70px;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .avatar {
+      width: 62px;
+      height: 62px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #6366f1 0%, #22d3ee 55%, #a78bfa 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: white;
+      letter-spacing: -0.5px;
+      box-shadow: 0 10px 28px rgba(99, 102, 241, 0.4);
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .avatar::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(145deg, rgba(255,255,255,0.22) 0%, transparent 55%);
+      border-radius: inherit;
+    }
+
+    .profile-info h1 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      line-height: 1.25;
+    }
+
+    .profile-info p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-top: 3px;
+    }
+
+    .badge {
+      background: rgba(52, 211, 153, 0.12);
+      color: #6ee7b7;
+      font-size: 0.8rem;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(52, 211, 153, 0.22);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      background: #34d399;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #34d399;
+    }
+
+    /* Section */
+    .section-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 1.2px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Bento */
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+      transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(14px);
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(255, 255, 255, 0.13);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .card-large {
+      grid-column: span 6;
+      min-height: 210px;
+    }
+
+    .card-full {
+      grid-column: span 12;
+      min-height: 170px;
+    }
+
+    .card-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 16px;
+      flex-shrink: 0;
+    }
+
+    .card-icon.green { background: rgba(52, 211, 153, 0.14); }
+    .card-icon.blue { background: rgba(99, 102, 241, 0.15); }
+    .card-icon.orange { background: rgba(251, 146, 60, 0.14); }
+
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.93rem;
+      flex-grow: 1;
+    }
+
+    .card-footer {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.83rem;
+      color: var(--text-muted);
+    }
+
+    .card-link {
+      color: var(--accent-2);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: gap 0.2s;
+    }
+
+    .card:hover .card-link {
+      gap: 9px;
+    }
+
+    /* Welcome */
+    .welcome {
+      grid-column: span 12;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.11), rgba(34, 211, 238, 0.06));
+      border-color: rgba(99, 102, 241, 0.18);
+      padding: 30px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .welcome h2 {
+      font-size: 1.45rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .welcome p {
+      color: var(--text-muted);
+      max-width: 460px;
+      font-size: 0.95rem;
+    }
+
+    .time-box {
+      text-align: left;
+      direction: ltr;
+    }
+
+    .time-box .time {
+      font-size: 2.15rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .time-box .date {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-top: 3px;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 56px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: var(--text);
+    }
+
+    /* Responsive */
+    @media (max-width: 800px) {
+      .card-large {
+        grid-column: span 12;
+      }
+
+      .welcome {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .time-box {
+        text-align: right;
+        direction: rtl;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        padding: 28px 16px 50px;
+      }
+
+      .avatar {
+        width: 52px;
+        height: 52px;
+        font-size: 17px;
+      }
+
+      .profile-info h1 {
+        font-size: 1.3rem;
+      }
+
+      .welcome {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="profile">
+        <div class="avatar">AS</div>
+        <div class="profile-info">
+          <h1>Abdallah Skeif</h1>
+          <p>لوحتي · لوحة التحكم الشخصية</p>
+        </div>
+      </div>
+      <div class="badge">Online</div>
+    </header>
+
+    <!-- Welcome -->
+    <div class="bento">
+      <div class="card welcome">
+        <div>
+          <h2 id="greeting">مرحباً</h2>
+          <p>من هنا تقدر توصل لكل أدواتك اليومية بسهولة وسرعة.</p>
+        </div>
+        <div class="time-box">
+          <div class="time" id="clock">--:--</div>
+          <div class="date" id="date">--</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tools -->
+    <div class="section-title" style="margin-top: 28px;">الأدوات</div>
+
+    <div class="bento">
+      <!-- Workout -->
+      <a href="https://strix2121.github.io/workout/" class="card card-large" target="_blank" rel="noopener">
+        <div class="card-icon green">💪</div>
+        <h3>التمارين والسعرات</h3>
+        <p>برنامجك التدريبي، تتبع التمارين والسعرات الحرارية اليومية.</p>
+        <div class="card-footer">
+          <span>Workout</span>
+          <span class="card-link">افتح ←</span>
+        </div>
+      </a>
+
+      <!-- Yawmiat -->
+      <a href="https://strix2121.github.io/yawmiat/" class="card card-large" target="_blank" rel="noopener">
+        <div class="card-icon blue">📒</div>
+        <h3>يومياتي</h3>
+        <p>اليوميات، المصاريف الشخصية، الديون والمهام اليومية.</p>
+        <div class="card-footer">
+          <span>Yawmiat</span>
+          <span class="card-link">افتح ←</span>
+        </div>
+      </a>
+
+      <!-- Greenhouse -->
+      <a href="https://strix2121.github.io/greenhouse-financial-calculator/" class="card card-full" target="_blank" rel="noopener">
+        <div class="card-icon orange">🏡</div>
+        <h3>لوحة مالية للبيوت البلاستيكية</h3>
+        <p>إدارة مالية متكاملة للشغل: المبيعات، التكاليف، الأرباح، وتفاصيل كل بيت.</p>
+        <div class="card-footer">
+          <span>Greenhouse Financial Calculator</span>
+          <span class="card-link">افتح ←</span>
+        </div>
+      </a>
+    </div>
+
+    <footer>
+      <p>صُنع بواسطة <strong>Abdallah Skeif</strong> · <a href="https://github.com/strix2121" target="_blank">GitHub</a></p>
+    </footer>
+  </div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('clock').textContent = now.toLocaleTimeString('ar-SY', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      });
+      document.getElementById('date').textContent = now.toLocaleDateString('ar-SY', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+
+    function updateGreeting() {
+      const hour = new Date().getHours();
+      let text = 'مرحباً';
+      if (hour >= 5 && hour < 12) text = 'صباح الخير ☀️';
+      else if (hour >= 12 && hour < 17) text = 'مساء النور 🌤';
+      else if (hour >= 17 && hour < 21) text = 'مساء الخير 🌆';
+      else text = 'مساء الخير 🌙';
+      document.getElementById('greeting').textContent = text;
+    }
+
+    updateClock();
+    updateGreeting();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>
