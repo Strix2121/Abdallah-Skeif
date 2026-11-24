@@ -1,0 +1,20 @@
+{
+  "name": "لوحتي | Abdallah Skeif",
+  "short_name": "لوحتي",
+  "description": "لوحة التحكم الشخصية - Abdallah Skeif",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#05080f",
+  "theme_color": "#6366f1",
+  "orientation": "portrait-primary",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لوحتي | Abdallah Skeif</title>
+  <meta name="description" content="لوحة التحكم الشخصية - Abdallah Skeif" />
+  <meta name="theme-color" content="#6366f1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="لوحتي" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="logo.jpg" />
+  <link rel="apple-touch-icon" href="logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #05080f;
+      --card: rgba(255, 255, 255, 0.03);
+      --card-hover: rgba(255, 255, 255, 0.055);
+      --border: rgba(255, 255, 255, 0.06);
+      --border-hover: rgba(255, 255, 255, 0.12);
+      --text: #f1f5f9;
+      --text-muted: #8b9cb3;
+      --text-dim: #64748b;
+      --accent-cyan: #22d3ee;
+      --radius: 24px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'IBM Plex Sans Arabic', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    .bg-glow {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .bg-glow::before {
+      content: '';
+      position: absolute; top: -40%; right: -25%; width: 80%; height: 80%;
+      background: radial-gradient(ellipse, rgba(99, 102, 241, 0.18) 0%, transparent 65%);
+      animation: float1 18s ease-in-out infinite;
+    }
+    .bg-glow::after {
+      content: '';
+      position: absolute; bottom: -30%; left: -20%; width: 70%; height: 70%;
+      background: radial-gradient(ellipse, rgba(34, 211, 238, 0.12) 0%, transparent 65%);
+      animation: float2 22s ease-in-out infinite;
+    }
+    @keyframes float1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-40px, 30px) scale(1.05); }
+    }
+    @keyframes float2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, -25px) scale(1.08); }
+    }
+    .container {
+      position: relative; z-index: 1;
+      max-width: 1120px; margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 48px; gap: 20px; flex-wrap: wrap;
+      animation: fadeUp 0.6s ease both;
+    }
+    .brand { display: flex; align-items: center; gap: 18px; }
+    .logo {
+      width: 68px; height: 68px; border-radius: 20px; object-fit: cover;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 12px 32px rgba(99, 102, 241, 0.35), 0 0 40px rgba(34, 211, 238, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .logo:hover {
+      transform: scale(1.05) rotate(-2deg);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 16px 40px rgba(99, 102, 241, 0.45), 0 0 50px rgba(34, 211, 238, 0.25);
+    }
+    .brand-text h1 {
+      font-size: 1.65rem; font-weight: 700; letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #fff 30%, #a5b4fc 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .brand-text p { color: var(--text-muted); font-size: 0.92rem; margin-top: 2px; }
+    .status {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(52, 211, 153, 0.08); border: 1px solid rgba(52, 211, 153, 0.18);
+      color: #6ee7b7; font-size: 0.82rem; font-weight: 500;
+      padding: 8px 16px; border-radius: 999px; backdrop-filter: blur(8px);
+    }
+    .status-dot {
+      width: 8px; height: 8px; background: #34d399; border-radius: 50%;
+      box-shadow: 0 0 10px #34d399; animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
+    }
+    .hero {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(34, 211, 238, 0.05) 50%, rgba(167, 139, 250, 0.06) 100%);
+      border: 1px solid rgba(99, 102, 241, 0.15); border-radius: 28px;
+      padding: 36px 40px; display: flex; align-items: center; justify-content: space-between;
+      gap: 32px; margin-bottom: 40px; position: relative; overflow: hidden;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    }
+    .hero-content h2 { font-size: 1.7rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.3px; }
+    .hero-content p { color: var(--text-muted); font-size: 1rem; max-width: 420px; }
+    .hero-time { text-align: left; direction: ltr; flex-shrink: 0; }
+    .hero-time .clock {
+      font-size: 2.8rem; font-weight: 700; letter-spacing: -1.5px;
+      font-variant-numeric: tabular-nums;
+      background: linear-gradient(135deg, #e0e7ff, #22d3ee);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      line-height: 1.1;
+    }
+    .hero-time .date { color: var(--text-dim); font-size: 0.9rem; margin-top: 6px; }
+    .section-label {
+      font-size: 0.78rem; font-weight: 600; color: var(--text-dim);
+      letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 18px;
+      display: flex; align-items: center; gap: 14px;
+      animation: fadeUp 0.7s 0.15s ease both;
+    }
+    .section-label::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(90deg, var(--border), transparent);
+    }
+    .grid {
+      display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+    .card {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 28px; text-decoration: none; color: inherit;
+      display: flex; flex-direction: column; position: relative; overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); backdrop-filter: blur(16px);
+    }
+    .card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 50%);
+      opacity: 0; transition: opacity 0.35s;
+    }
+    .card:hover {
+      background: var(--card-hover); border-color: var(--border-hover);
+      transform: translateY(-6px);
+      box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.05);
+    }
+    .card:hover::before { opacity: 1; }
+    .card-lg { grid-column: span 6; min-height: 240px; }
+    .card-full {
+      grid-column: span 12; min-height: 180px;
+      flex-direction: row; align-items: center; gap: 28px;
+    }
+    .card-full .card-body { flex: 1; }
+    .card-icon {
+      width: 52px; height: 52px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; margin-bottom: 20px; flex-shrink: 0;
+    }
+    .card-full .card-icon { margin-bottom: 0; width: 60px; height: 60px; font-size: 28px; }
+    .card-icon.green {
+      background: linear-gradient(135deg, rgba(52, 211, 153, 0.2), rgba(52, 211, 153, 0.08));
+      box-shadow: 0 8px 20px rgba(52, 211, 153, 0.12);
+    }
+    .card-icon.blue {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.22), rgba(99, 102, 241, 0.08));
+      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.15);
+    }
+    .card-icon.orange {
+      background: linear-gradient(135deg, rgba(251, 146, 60, 0.2), rgba(251, 146, 60, 0.08));
+      box-shadow: 0 8px 20px rgba(251, 146, 60, 0.12);
+    }
+    .card h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.2px; }
+    .card p { color: var(--text-muted); font-size: 0.94rem; flex-grow: 1; line-height: 1.55; }
+    .card-footer {
+      margin-top: 22px; display: flex; align-items: center;
+      justify-content: space-between; font-size: 0.82rem;
+    }
+    .card-full .card-footer { margin-top: 14px; }
+    .card-tag { color: var(--text-dim); font-weight: 500; }
+    .card-cta {
+      color: var(--accent-cyan); font-weight: 600;
+      display: flex; align-items: center; gap: 6px; transition: gap 0.25s ease;
+    }
+    .card:hover .card-cta { gap: 10px; }
+    .card-cta svg { width: 16px; height: 16px; transition: transform 0.25s ease; }
+    .card:hover .card-cta svg { transform: translateX(-3px); }
+    footer {
+      margin-top: 64px; text-align: center; color: var(--text-dim);
+      font-size: 0.85rem; animation: fadeUp 0.7s 0.3s ease both;
+    }
+    footer strong { color: var(--text-muted); font-weight: 600; }
+    footer a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--accent-cyan); }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 820px) {
+      .card-lg { grid-column: span 12; }
+      .card-full { flex-direction: column; align-items: flex-start; gap: 18px; }
+      .hero { flex-direction: column; align-items: flex-start; padding: 28px; }
+      .hero-time { text-align: right; direction: rtl; }
+      .hero-time .clock { font-size: 2.2rem; }
+      header { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 500px) {
+      .container { padding: 28px 16px 60px; }
+      .logo { width: 56px; height: 56px; border-radius: 16px; }
+      .brand-text h1 { font-size: 1.35rem; }
+      .hero { padding: 24px; }
+      .hero-content h2 { font-size: 1.35rem; }
+      .card { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <img src="logo.jpg" alt="Logo" class="logo" />
+        <div class="brand-text">
+          <h1>Abdallah Skeif</h1>
+          <p>لوحتي · لوحة التحكم الشخصية</p>
+        </div>
+      </div>
+      <div class="status">
+        <span class="status-dot"></span>
+        Online
+      </div>
+    </header>
+
+    <div class="hero">
+      <div class="hero-content">
+        <h2 id="greeting">مرحباً</h2>
+        <p>من هنا تقدر توصل لكل أدواتك اليومية بسهولة وسرعة.</p>
+      </div>
+      <div class="hero-time">
+        <div class="clock" id="clock">--:--</div>
+        <div class="date" id="date">--</div>
+      </div>
+    </div>
+
+    <div class="section-label">الأدوات</div>
+
+    <div class="grid">
+      <a href="https://strix2121.github.io/workout/" class="card card-lg">
+        <div class="card-icon green">💪</div>
+        <h3>التمارين والسعرات</h3>
+        <p>برنامجك التدريبي، تتبع التمارين والسعرات الحرارية اليومية بكل سهولة.</p>
+        <div class="card-footer">
+          <span class="card-tag">Workout</span>
+          <span class="card-cta">
+            افتح
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a href="https://strix2121.github.io/yawmiat/" class="card card-lg">
+        <div class="card-icon blue">📒</div>
+        <h3>يومياتي</h3>
+        <p>اليوميات، المصاريف الشخصية، الديون والمهام اليومية في مكان واحد.</p>
+        <div class="card-footer">
+          <span class="card-tag">Yawmiat</span>
+          <span class="card-cta">
+            افتح
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a href="https://strix2121.github.io/greenhouse-financial-calculator/" class="card card-full">
+        <div class="card-icon orange">🏡</div>
+        <div class="card-body">
+          <h3>لوحة مالية للبيوت البلاستيكية</h3>
+          <p>إدارة مالية متكاملة للشغل: المبيعات، التكاليف، الأرباح، وتفاصيل كل بيت.</p>
+          <div class="card-footer">
+            <span class="card-tag">Greenhouse Financial Calculator</span>
+            <span class="card-cta">
+              افتح
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            </span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <footer>
+      <p>صُنع بواسطة <strong>Abdallah Skeif</strong> · <a href="https://github.com/strix2121">GitHub</a></p>
+    </footer>
+  </div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('clock').textContent = now.toLocaleTimeString('ar-SY', {
+        hour: '2-digit', minute: '2-digit', hour12: false
+      });
+      document.getElementById('date').textContent = now.toLocaleDateString('ar-SY', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+      });
+    }
+    function updateGreeting() {
+      const hour = new Date().getHours();
+      let text = 'مرحباً';
+      if (hour >= 5 && hour < 12) text = 'صباح الخير ☀️';
+      else if (hour >= 12 && hour < 17) text = 'مساء النور 🌤';
+      else if (hour >= 17 && hour < 21) text = 'مساء الخير 🌆';
+      else text = 'مساء الخير 🌙';
+      document.getElementById('greeting').textContent = text;
+    }
+    updateClock();
+    updateGreeting();
+    setInterval(updateClock, 1000);
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
